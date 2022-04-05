@@ -3,6 +3,7 @@ import { Chinchilla } from '../models/chinchilla.js'
 
 function index (req, res) {
   Chinchilla.find({})
+  .populate('owner')
   .then(chinchillas => {
     res.json(chinchillas)
   })
@@ -13,9 +14,14 @@ function index (req, res) {
 
 
 function create(req, res) {
-  Chinchilla.create(req.body)
   req.body.owner = req.user.profile
-  .then(chinchilla => res.json(chinchilla))
+  Chinchilla.create(req.body)
+  .then(chinchilla => {
+    chinchilla.populate('owner')
+    .then(populatedChinchilla => {
+    res.json(populatedChinchilla)
+    })    
+  })
   .catch(err => res.json(err))
 }
 
