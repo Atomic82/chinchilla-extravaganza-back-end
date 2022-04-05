@@ -27,7 +27,7 @@ function create(req, res) {
 }
 
 function deleteChinchilla(req, res) {
-  Chinchilla.delete(req.body)
+  Chinchilla.findByIdAndDelete(req.params.id)
   .then(chinchilla => res.json(chinchilla))
   .catch(err => res.json(err))
 }
