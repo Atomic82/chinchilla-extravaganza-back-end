@@ -1,21 +1,23 @@
 import { Router } from 'express'
 import * as chinchillasCtrl from '../controllers/chinchillas.js'
+import { decodeUserFromToken, checkAuth } from '../middleware/auth.js'
 const router = Router()
 
-// index
+
+
+/*-------------- Public Routes */
+
+router.get('/:id', chinchillasCtrl.show)
 router.get('/', chinchillasCtrl.index)
 
-// create
-router.post('/', chinchillasCtrl.create)
+/*-------------- Protected Routes */
+router.use(decodeUserFromToken)
 
-// update
-router.put('/:id', chinchillasCtrl.update)
+router.post('/', checkAuth, chinchillasCtrl.create)
+router.put('/:id', checkAuth, chinchillasCtrl.update)
+router.delete('/:id', checkAuth, chinchillasCtrl.delete)
 
-// delete
-router.delete('/:id', chinchillasCtrl.delete)
 
-// show 
-router.get('/:id', chinchillasCtrl.show)
 
 export {
   router

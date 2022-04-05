@@ -14,6 +14,7 @@ function index (req, res) {
 
 function create(req, res) {
   Chinchilla.create(req.body)
+  req.body.owner = req.user.profile
   .then(chinchilla => res.json(chinchilla))
   .catch(err => res.json(err))
 }

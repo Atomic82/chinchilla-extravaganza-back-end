@@ -58,12 +58,14 @@ function signup(req, res) {
 function login(req, res) {
   User.findOne({ email: req.body.email })
   .then(user => {
+    console.log('user not found')
     if (!user) return res.status(401).json({ err: 'User not found'})
     user.comparePassword(req.body.pw, (err, isMatch) => {
       if (isMatch) {
         const token = createJWT(user)
         res.json({ token })
       } else {
+        console.log('incorrect password')
         res.status(401).json({ err: 'Incorrect password' })
       }
     })
