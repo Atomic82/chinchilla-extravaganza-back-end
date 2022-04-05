@@ -14,4 +14,4 @@ const chinchillaSchema = new Schema({
 
 const Chinchilla = mongoose.model('Chinchilla', chinchillaSchema)
 
-export {Chinchilla} 
+export { Chinchilla } 

@@ -5,6 +5,7 @@ function index (req, res) {
   Chinchilla.find({})
   .populate('owner')
   .then(chinchillas => {
+    console.log('all chinchillas', chinchillas)
     res.json(chinchillas)
   })
   .catch(err => {
@@ -26,7 +27,7 @@ function create(req, res) {
 }
 
 function deleteChinchilla(req, res) {
-  Chinchilla.create(req.body)
+  Chinchilla.delete(req.body)
   .then(chinchilla => res.json(chinchilla))
   .catch(err => res.json(err))
 }
