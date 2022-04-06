@@ -33,6 +33,7 @@ function deleteChinchilla(req, res) {
 }
 
 function update(req, res) {
+  console.log(req.body)
   Chinchilla.findByIdAndUpdate(req.params.id, req.body,
     {new: true})
   .then(chinchilla => res.json(chinchilla))
@@ -53,4 +54,4 @@ export {
   show
 }
 
-//test
+
